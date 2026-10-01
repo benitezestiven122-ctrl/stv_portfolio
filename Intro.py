@@ -1,213 +1,202 @@
 import streamlit as st
-from PIL import Image
 import os
-import time
 
 # ==========================================
-# 1. CONFIGURACIÓN DE PÁGINA Y UX
+# 1. CONFIGURACIÓN DE PÁGINA
 # ==========================================
 st.set_page_config(
-    page_title="Estiven Serna | Diseño Interactivo", 
-    page_icon="✨", 
+    page_title="Portafolio IA | Estiven Serna", 
+    page_icon="🧠", 
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
 # ==========================================
-# 2. INYECCIÓN DE CSS (ESTÉTICA Y ANIMACIONES)
+# 2. INYECCIÓN DE CSS (DISEÑO Y ANIMACIONES)
 # ==========================================
-# Esto mejora la tipografía, añade bordes redondeados y animaciones al pasar el cursor (hover)
 custom_css = """
 <style>
-    /* Importar fuente moderna */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap');
     
     html, body, [class*="css"] {
         font-family: 'Inter', sans-serif;
     }
     
-    /* Animación de Hover para imágenes */
-    img {
-        border-radius: 12px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    img:hover {
-        transform: scale(1.02);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    }
-    
-    /* Estilo para los títulos de sección */
-    .section-title {
-        font-size: 2.5rem;
+    .title-gradient {
+        font-size: 2.8rem;
         font-weight: 700;
-        background: -webkit-linear-gradient(45deg, #FF4B2B, #FF416C);
+        background: -webkit-linear-gradient(45deg, #4A00E0, #8E2DE2);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        margin-bottom: 0px;
+        margin-bottom: 10px;
+    }
+    
+    .app-card {
+        padding: 1.5rem;
+        border-radius: 10px;
+        background-color: #f8f9fa;
+        border: 1px solid #e9ecef;
+        margin-bottom: 1rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    /* Modo oscuro compatible */
+    @media (prefers-color-scheme: dark) {
+        .app-card {
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+        }
+    }
+
+    .app-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
     }
 </style>
 """
 st.markdown(custom_css, unsafe_allow_html=True)
 
 # ==========================================
-# 3. BASE DE DATOS DE PROYECTOS (ESTRUCTURADA)
-# ==========================================
-# Divididos por categorías para mejor Arquitectura de la Información
-portfolio_data = {
-    "3D y Animación": [
-        {
-            "titulo": "Modelado y Renderizado Hard Surface",
-            "herramientas": "Blender | Maya",
-            "imagen": "proyecto_3d_1.png",
-            "desc_corta": "Creación de assets 3D optimizados con texturizado PBR.",
-            "desc_larga": "Elaboración de props y escenarios para entornos inmersivos, cuidando la topología y optimizando los mapas de normales y rugosidad.",
-            "enlace": "https://behance.net/tu-enlace"
-        },
-        {
-            "titulo": "Motion Graphics y Composición",
-            "herramientas": "After Effects",
-            "imagen": "proyecto_ae_1.png",
-            "desc_corta": "Animación 2D y postproducción audiovisual.",
-            "desc_larga": "Integración de elementos gráficos con video real, trackeo de cámara y diseño de interfaces animadas (FUI).",
-            "enlace": "https://behance.net/tu-enlace"
-        }
-    ],
-    "Interactividad y VR": [
-        {
-            "titulo": "Experiencia en Realidad Virtual",
-            "herramientas": "Unity | C#",
-            "imagen": "proyecto_vr_1.png",
-            "desc_corta": "Mecánicas interactivas para entornos inmersivos.",
-            "desc_larga": "Desarrollo de interacciones espaciales, físicas y diseño de nivel en Unity usando XR Interaction Toolkit.",
-            "enlace": "https://github.com/tu-enlace"
-        }
-    ],
-    "Audiovisual y Tiempo Real": [
-        {
-            "titulo": "Sistemas Generativos / VJing",
-            "herramientas": "TouchDesigner | Resolume",
-            "imagen": "proyecto_vj_1.png",
-            "desc_corta": "Arte generativo y visuales reactivos al audio.",
-            "desc_larga": "Creación de parches en TouchDesigner que reaccionan a frecuencias sonoras en tiempo real, mapeados para presentaciones en vivo usando Resolume Arena.",
-            "enlace": "https://youtube.com/tu-enlace"
-        }
-    ]
-}
-
-# ==========================================
-# 4. BARRA LATERAL (NAVEGACIÓN UX)
+# 3. BARRA LATERAL (PERFIL)
 # ==========================================
 with st.sidebar:
-    st.image("https://cdn-icons-png.flaticon.com/512/3135/3135715.png", width=100) # Reemplaza por una URL de tu foto de perfil
     st.title("Estiven Serna")
-    st.caption("Diseñador Interactivo | 6to Semestre")
-    st.divider()
-    
-    # Menú de navegación simulado
-    menu = st.radio(
-        "Navegación",
-        ["🏠 Inicio", "📂 Mi Trabajo", "🛠️ Habilidades", "✉️ Contacto"]
-    )
-    
+    st.subheader("Estudiante de Diseño Interactivo | 6to Semestre")
+    st.write("Apasionado por la integración de tecnologías inmersivas, inteligencia artificial y narrativas visuales.")
     st.divider()
     st.write("📍 Medellín, Colombia")
-    st.write("🔗 [LinkedIn](#)")
-    st.write("🔗 [Behance](#)")
+    st.write("🔗 [Mi LinkedIn](#)")
+    st.write("🔗 [Mi GitHub](#)")
 
 # ==========================================
-# 5. LÓGICA DE LAS VISTAS (PÁGINAS)
+# 4. BASE DE DATOS DE LAS 10 APLICACIONES
 # ==========================================
+apps_ia = [
+    {
+        "titulo": "Detección de Objetos",
+        "tag": "Computer Vision / YOLO",
+        "icono": "👁️",
+        "desc": "Esta aplicación utiliza redes neuronales convolucionales para identificar y localizar múltiples objetos dentro de una imagen en tiempo real, trazando cajas delimitadoras con sus respectivas etiquetas y niveles de confianza.",
+        "url": "https://yolov5cmc.streamlit.app/"
+    },
+    {
+        "titulo": "WordCloud Studio",
+        "tag": "NLP / Data Viz",
+        "icono": "☁️",
+        "desc": "Genera nubes de palabras dinámicas a partir de textos extensos. Esta herramienta de procesamiento de lenguaje natural resalta los términos más frecuentes, facilitando el análisis visual rápido de grandes volúmenes de datos textuales.",
+        "url": "#"
+    },
+    {
+        "titulo": "Traductor Neuronal",
+        "tag": "Sequence-to-Sequence",
+        "icono": "🌐",
+        "desc": "Rompe las barreras del idioma con esta herramienta de traducción automática. Capaz de interpretar y convertir texto entre múltiples idiomas con alta precisión, conservando el contexto y la semántica original de las oraciones.",
+        "url": "#"
+    },
+    {
+        "titulo": "Demo TF-IDF en Español",
+        "tag": "Information Retrieval",
+        "icono": "📊",
+        "desc": "Descubre la relevancia de las palabras en tus documentos. Esta aplicación implementa el algoritmo TF-IDF para extraer conceptos clave y analizar la importancia relativa de los términos en un corpus específico de textos en español.",
+        "url": "#"
+    },
+    {
+        "titulo": "Análisis de Sentimiento",
+        "tag": "Clasificación de Texto",
+        "icono": "🎭",
+        "desc": "Evalúa el tono emocional detrás de las palabras. Esta herramienta clasifica textos según su polaridad (positiva, negativa o neutral), siendo ideal para analizar opiniones de usuarios o interacciones masivas en redes sociales.",
+        "url": "#"
+    },
+    {
+        "titulo": "Traductor de Imágenes",
+        "tag": "OCR + Translation",
+        "icono": "📸",
+        "desc": "Combina tecnología OCR con modelos de traducción automática. Al subir una imagen que contenga texto en otro idioma, la aplicación extrae los caracteres procesables y los traduce instantáneamente a tu idioma de preferencia.",
+        "url": "#"
+    },
+    {
+        "titulo": "Reconocimiento Óptico (OCR)",
+        "tag": "Optical Character Recognition",
+        "icono": "📄",
+        "desc": "Digitaliza texto impreso o escrito con facilidad. Esta herramienta extrae la información contenida en imágenes o documentos escaneados, transformándolos en texto completamente editable mediante algoritmos de visión artificial.",
+        "url": "#"
+    },
+    {
+        "titulo": "Agente de IA",
+        "tag": "LLM / Conversational",
+        "icono": "🤖",
+        "desc": "Interactúa con un asistente virtual impulsado por modelos de lenguaje grande (LLM). Este agente está diseñado para comprender intenciones, mantener el contexto de la conversación y resolver consultas complejas de manera natural.",
+        "url": "https://dataagente.streamlit.app/"
+    },
+    {
+        "titulo": "Analizador de PDF con LLM",
+        "tag": "RAG / Document AI",
+        "icono": "📚",
+        "desc": "Sube tus documentos PDF y chatea con ellos. Esta aplicación utiliza Generación Aumentada por Recuperación (RAG) para extraer información clave, resumir textos largos y responder preguntas precisas sobre tus propios archivos.",
+        "url": "https://chatpdf-cc.streamlit.app/"
+    },
+    {
+        "titulo": "Mi Primera App IA",
+        "tag": "Prototipo Base",
+        "icono": "🚀",
+        "desc": "Un espacio de experimentación y prueba de conceptos básicos. Aquí se exploran integraciones iniciales de modelos de machine learning y estructuras de interfaz, sentando las bases para aplicaciones interactivas más robustas.",
+        "url": "#"
+    }
+]
 
-if menu == "🏠 Inicio":
-    # Layout asimétrico para la cabecera (texto a la izq, imagen abstracta a la der)
-    col1, col2 = st.columns([2, 1])
-    with col1:
-        st.markdown('<p class="section-title">Creando experiencias donde el diseño y la tecnología colisionan.</p>', unsafe_allow_html=True)
-        st.write("")
-        st.write("""
-        Soy un apasionado de la creación audiovisual y el diseño interactivo. 
-        Mi enfoque fusiona el arte digital con la programación para crear narrativas visuales, 
-        desde **animación 3D/2D** hasta **sistemas generativos y realidad virtual**.
-        """)
-        if st.button("Ver mi trabajo 🚀"):
-            st.info("👆 Usa el menú lateral para ir a 'Mi Trabajo'")
-            
-    with col2:
-        # Aquí puedes poner un GIF de tu reel de animación
-        st.image("https://cdn.dribbble.com/users/107759/screenshots/3629471/media/e48f02f067d5ce39097bc751d387f631.gif", use_column_width=True)
+# ==========================================
+# 5. CONTENIDO PRINCIPAL (PESTAÑAS)
+# ==========================================
+st.markdown('<p class="title-gradient">Portafolio de Proyectos</p>', unsafe_allow_html=True)
+st.write("Explora mis herramientas desarrolladas con Inteligencia Artificial y mi perfil creativo.")
 
-elif menu == "📂 Mi Trabajo":
-    st.markdown('<p class="section-title">Portafolio de Proyectos</p>', unsafe_allow_html=True)
-    st.write("Explora mis disciplinas a través de las siguientes pestañas:")
-    
-    # Pestañas para dividir la información (Excelente UX)
-    tab1, tab2, tab3 = st.tabs(["🎨 3D & Animación", "🕹️ Interactividad & VR", "🎛️ Audiovisual & VJ"])
-    
-    tabs = [tab1, tab2, tab3]
-    categorias = list(portfolio_data.keys())
-    
-    # Renderizado dinámico de proyectos
-    for tab, categoria in zip(tabs, categorias):
-        with tab:
-            st.write("---")
-            # Crear columnas dinámicas basadas en la cantidad de proyectos
-            proyectos = portfolio_data[categoria]
-            cols = st.columns(2) # Mostramos 2 proyectos por fila para que se vean grandes y limpios
-            
-            for i, p in enumerate(proyectos):
-                col = cols[i % 2]
-                with col:
-                    # Contenedor del proyecto
-                    if os.path.exists(p["imagen"]):
-                        st.image(p["imagen"], use_column_width=True)
-                    else:
-                        # Placeholder estético si no hay imagen
-                        st.image("https://via.placeholder.com/600x400/1E1E1E/FFFFFF?text=Imagen+del+Proyecto", use_column_width=True)
-                    
-                    st.subheader(p["titulo"])
-                    st.caption(f"🛠️ {p['herramientas']}")
-                    st.write(p["desc_corta"])
-                    
-                    # Expander para revelación progresiva (No satura al usuario de texto)
-                    with st.expander("Ver detalles del proceso"):
-                        st.write(p["desc_larga"])
-                        st.markdown(f"[Ver proyecto completo]({p['enlace']})")
-                    st.write("") # Espaciador
+# Creación de pestañas (La de IA es la principal)
+tab1, tab2 = st.tabs(["🧠 Aplicaciones de Inteligencia Artificial", "🎬 Extra: Enfoque Audiovisual y 3D"])
 
-elif menu == "🛠️ Habilidades":
-    st.markdown('<p class="section-title">Stack Tecnológico</p>', unsafe_allow_html=True)
-    st.write("Herramientas y software que utilizo en mi flujo de trabajo creativo.")
+with tab1:
+    st.write("### Mis Desarrollos en IA")
+    st.write("A continuación, una colección de aplicaciones prácticas de Inteligencia Artificial, que abarcan desde Visión por Computadora hasta Procesamiento de Lenguaje Natural.")
+    st.write("---")
     
+    # Grid de 2 columnas para mostrar las 10 apps
     col1, col2 = st.columns(2)
-    with col1:
-        st.subheader("CGI & Animación")
-        st.write("Blender")
-        st.progress(85)
-        st.write("Maya")
-        st.progress(70)
-        st.write("After Effects")
-        st.progress(90)
-        
-    with col2:
-        st.subheader("Interactividad & Tiempo Real")
-        st.write("Unity")
-        st.progress(75)
-        st.write("TouchDesigner")
-        st.progress(65)
-        st.write("Resolume")
-        st.progress(80)
-
-elif menu == "✉️ Contacto":
-    st.markdown('<p class="section-title">Hablemos</p>', unsafe_allow_html=True)
-    st.write("¿Tienes un proyecto en mente o quieres colaborar? Envíame un mensaje.")
     
-    # Formulario simulado de contacto
-    with st.form("contacto_form"):
-        nombre = st.text_input("Tu Nombre")
-        email = st.text_input("Tu Correo Electrónico")
-        mensaje = st.text_area("Mensaje")
-        enviado = st.form_submit_button("Enviar Mensaje 🚀")
+    for i, app in enumerate(apps_ia):
+        # Distribución equitativa: pares a la izquierda, impares a la derecha
+        col = col1 if i % 2 == 0 else col2
         
-        if enviado:
-            st.success(f"¡Gracias {nombre}! Tu mensaje ha sido enviado (simulación).")
-            st.balloons() # Pequeño detalle de satisfacción (QoL)
+        with col:
+            # Uso de HTML dentro de Streamlit para crear el efecto "Tarjeta" con CSS
+            st.markdown(f"""
+            <div class="app-card">
+                <h3 style="margin-top: 0;">{app['icono']} {app['titulo']}</h3>
+                <p style="color: #888; font-size: 0.9em; font-weight: bold; margin-bottom: 10px;">🏷️ {app['tag']}</p>
+                <p>{app['desc']}</p>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            # Botón de enlace nativo de Streamlit justo debajo de la tarjeta HTML
+            st.link_button(f"🔗 Abrir {app['titulo']}", app['url'], use_container_width=True)
+            st.write("") # Espaciador
+
+
+with tab2:
+    st.write("### Perfil Creativo e Interactivo")
+    st.write("Como estudiante de Diseño Interactivo, mi perfil también está fuertemente enfocado en la **animación y la creación audiovisual a través de estilos 3D y 2D**.")
+    
+    col3, col4 = st.columns(2)
+    
+    with col3:
+        st.info("**Programas y Herramientas que domino:**")
+        st.write("✔️ **3D y Animación:** Blender, Maya")
+        st.write("✔️ **Composición Visual:** After Effects")
+        st.write("✔️ **Desarrollo Interactivo:** Unity (C# / XR)")
+        st.write("✔️ **VJing y Generativo:** TouchDesigner, Resolume")
+        
+    with col4:
+        st.success("**Enfoque Profesional:**")
+        st.write("""
+        Busco crear narrativas visuales y experiencias inmersivas que conecten con los usuarios, 
+        fusionando la programación, el diseño de interfaces y el arte digital para explorar nuevas 
+        formas de interacción ciberfísica y virtual.
+        """)
