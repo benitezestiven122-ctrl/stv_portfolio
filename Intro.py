@@ -5,6 +5,7 @@ import os
 # 1. CONFIGURACIÓN DE PÁGINA
 # ==========================================
 st.set_page_config(
+# ==========================================
     page_title="Portafolio IA | Estiven Serna", 
     page_icon="🧠", 
     layout="wide",
