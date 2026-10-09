@@ -6,7 +6,7 @@ import os
 # ==========================================
 st.set_page_config(
 # ==========================================
-    page_title="Portafolio IA | Estiven Serna", 
+    page_title="Portafolio | Estiven Serna", 
     page_icon="🧠", 
     layout="wide",
     initial_sidebar_state="expanded"
@@ -78,70 +78,70 @@ apps_ia = [
         "tag": "Computer Vision / YOLO",
         "icono": "👁️",
         "desc": "Esta aplicación utiliza redes neuronales convolucionales para identificar y localizar múltiples objetos dentro de una imagen en tiempo real, trazando cajas delimitadoras con sus respectivas etiquetas y niveles de confianza.",
-        "url": "https://yolov5cmc.streamlit.app/"
+        "url": "https://yolov5stv-122.streamlit.app/"
     },
     {
         "titulo": "WordCloud Studio",
         "tag": "NLP / Data Viz",
         "icono": "☁️",
         "desc": "Genera nubes de palabras dinámicas a partir de textos extensos. Esta herramienta de procesamiento de lenguaje natural resalta los términos más frecuentes, facilitando el análisis visual rápido de grandes volúmenes de datos textuales.",
-        "url": "#"
+        "url": "https://wordcloudstv-122.streamlit.app"
     },
     {
         "titulo": "Traductor Neuronal",
         "tag": "Sequence-to-Sequence",
         "icono": "🌐",
         "desc": "Rompe las barreras del idioma con esta herramienta de traducción automática. Capaz de interpretar y convertir texto entre múltiples idiomas con alta precisión, conservando el contexto y la semántica original de las oraciones.",
-        "url": "#"
+        "url": "https://traductorstv-122.streamlit.app"
     },
     {
         "titulo": "Demo TF-IDF en Español",
         "tag": "Information Retrieval",
         "icono": "📊",
         "desc": "Descubre la relevancia de las palabras en tus documentos. Esta aplicación implementa el algoritmo TF-IDF para extraer conceptos clave y analizar la importancia relativa de los términos en un corpus específico de textos en español.",
-        "url": "#"
+        "url": "https://tdfespstv-122.streamlit.app"
     },
     {
         "titulo": "Análisis de Sentimiento",
         "tag": "Clasificación de Texto",
         "icono": "🎭",
         "desc": "Evalúa el tono emocional detrás de las palabras. Esta herramienta clasifica textos según su polaridad (positiva, negativa o neutral), siendo ideal para analizar opiniones de usuarios o interacciones masivas en redes sociales.",
-        "url": "#"
+        "url": "https://sentimentstv-122.streamlit.app"
     },
     {
         "titulo": "Traductor de Imágenes",
         "tag": "OCR + Translation",
         "icono": "📸",
         "desc": "Combina tecnología OCR con modelos de traducción automática. Al subir una imagen que contenga texto en otro idioma, la aplicación extrae los caracteres procesables y los traduce instantáneamente a tu idioma de preferencia.",
-        "url": "#"
+        "url": "https://7acrpywfn4dncx2pxs7pb9.streamlit.app"
     },
     {
         "titulo": "Reconocimiento Óptico (OCR)",
         "tag": "Optical Character Recognition",
         "icono": "📄",
         "desc": "Digitaliza texto impreso o escrito con facilidad. Esta herramienta extrae la información contenida en imágenes o documentos escaneados, transformándolos en texto completamente editable mediante algoritmos de visión artificial.",
-        "url": "#"
+        "url": "https://ocrstv-122.streamlit.app"
     },
     {
         "titulo": "Agente de IA",
         "tag": "LLM / Conversational",
         "icono": "🤖",
         "desc": "Interactúa con un asistente virtual impulsado por modelos de lenguaje grande (LLM). Este agente está diseñado para comprender intenciones, mantener el contexto de la conversación y resolver consultas complejas de manera natural.",
-        "url": "https://dataagente.streamlit.app/"
+        "url": "https://text-to-speech-estivenserna.streamlit.app/"
     },
     {
         "titulo": "Analizador de PDF con LLM",
         "tag": "RAG / Document AI",
         "icono": "📚",
         "desc": "Sube tus documentos PDF y chatea con ellos. Esta aplicación utiliza Generación Aumentada por Recuperación (RAG) para extraer información clave, resumir textos largos y responder preguntas precisas sobre tus propios archivos.",
-        "url": "https://chatpdf-cc.streamlit.app/"
+        "url": "https://pdf122.streamlit.app"
     },
     {
-        "titulo": "Mi Primera App IA",
+        "titulo": "OCR AUDIO",
         "tag": "Prototipo Base",
         "icono": "🚀",
         "desc": "Un espacio de experimentación y prueba de conceptos básicos. Aquí se exploran integraciones iniciales de modelos de machine learning y estructuras de interfaz, sentando las bases para aplicaciones interactivas más robustas.",
-        "url": "#"
+        "url": "https://ocraudio-122.streamlit.app"
     }
 ]
 
