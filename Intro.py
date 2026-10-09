@@ -5,15 +5,14 @@ import os
 # 1. CONFIGURACIÓN DE PÁGINA
 # ==========================================
 st.set_page_config(
-# ==========================================
     page_title="Portafolio | Estiven Serna", 
-    page_icon="🧠", 
+    page_icon="🎬", 
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
 # ==========================================
-# 2. INYECCIÓN DE CSS (DISEÑO Y ANIMACIONES)
+# 2. INYECCIÓN DE CSS (DISEÑO, ROJO/VINOTINTO Y ANIMACIONES)
 # ==========================================
 custom_css = """
 <style>
@@ -23,35 +22,57 @@ custom_css = """
         font-family: 'Inter', sans-serif;
     }
     
+    /* Fondo principal y sidebar en tonos oscuros elegantes o limpios con acento vinotinto */
+    .stApp {
+        background-color: #0b0c10;
+        color: #e5e5e5;
+    }
+
+    [data-testid="stSidebar"] {
+        background-color: #14080a !important;
+        border-right: 1px solid #3d1217;
+    }
+    
+    /* Gradiente de títulos en tonos Rojos y Vinotinto */
     .title-gradient {
         font-size: 2.8rem;
         font-weight: 700;
-        background: -webkit-linear-gradient(45deg, #4A00E0, #8E2DE2);
+        background: -webkit-linear-gradient(45deg, #ff1e56, #800020, #b20038);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         margin-bottom: 10px;
     }
     
+    /* Tarjetas de proyectos con estética Vinotinto y animaciones fluidas */
     .app-card {
-        padding: 1.5rem;
-        border-radius: 10px;
-        background-color: #f8f9fa;
-        border: 1px solid #e9ecef;
-        margin-bottom: 1rem;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    /* Modo oscuro compatible */
-    @media (prefers-color-scheme: dark) {
-        .app-card {
-            background-color: #1e1e1e;
-            border: 1px solid #333;
-        }
+        padding: 1.8rem;
+        border-radius: 12px;
+        background-color: #1a0b0e;
+        border: 1px solid #4a121a;
+        margin-bottom: 1.2rem;
+        transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     }
 
     .app-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        transform: translateY(-6px) scale(1.01);
+        box-shadow: 0 14px 28px rgba(128, 0, 32, 0.35);
+        border-color: #ff1e56;
+    }
+
+    /* Estilo personalizado para los botones nativos de enlace */
+    .stButton > button, div[data-testid="stLinkButton"] > a {
+        background: linear-gradient(135deg, #800020 0%, #b20038 100%) !important;
+        color: white !important;
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+        border: none !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .stButton > button:hover, div[data-testid="stLinkButton"] > a:hover {
+        background: linear-gradient(135deg, #b20038 0%, #ff1e56 100%) !important;
+        box-shadow: 0 0 15px rgba(255, 30, 86, 0.5) !important;
     }
 </style>
 """
@@ -63,84 +84,84 @@ st.markdown(custom_css, unsafe_allow_html=True)
 with st.sidebar:
     st.title("Estiven Serna")
     st.subheader("Estudiante de Diseño Interactivo | 6to Semestre")
-    st.write("Apasionado por la integración de tecnologías inmersivas, inteligencia artificial y narrativas visuales.")
+    st.write("Especializado en animación, creación audiovisual, arte 3D/2D y prototipado de aplicaciones interactivas con Inteligencia Artificial.")
     st.divider()
     st.write("📍 Medellín, Colombia")
-    st.write("🔗 [Mi LinkedIn](#)")
-    st.write("🔗 [Mi GitHub](#)")
+    st.write("🔗 [LinkedIn](#)")
+    st.write("🔗 [GitHub](#)")
 
 # ==========================================
-# 4. BASE DE DATOS DE LAS 10 APLICACIONES
+# 4. BASE DE DATOS DE LAS 10 APLICACIONES (ACTUALIZADAS)
 # ==========================================
 apps_ia = [
     {
-        "titulo": "Detección de Objetos",
-        "tag": "Computer Vision / YOLO",
-        "icono": "👁️",
-        "desc": "Esta aplicación utiliza redes neuronales convolucionales para identificar y localizar múltiples objetos dentro de una imagen en tiempo real, trazando cajas delimitadoras con sus respectivas etiquetas y niveles de confianza.",
+        "titulo": "Visio-Synth: Mapeador de Triggers",
+        "tag": "Computer Vision / YOLOv5",
+        "icono": "🎛️",
+        "desc": "Convierte objetos físicos detectados por la cámara web en disparadores (triggers) de datos. Diseñado conceptualmente para enviar señales OSC/MIDI a software de VJing como Resolume y TouchDesigner.",
         "url": "https://yolov5stv-122.streamlit.app/"
     },
     {
-        "titulo": "WordCloud Studio",
-        "tag": "NLP / Data Viz",
-        "icono": "☁️",
-        "desc": "Genera nubes de palabras dinámicas a partir de textos extensos. Esta herramienta de procesamiento de lenguaje natural resalta los términos más frecuentes, facilitando el análisis visual rápido de grandes volúmenes de datos textuales.",
+        "titulo": "Typo-Mask VJ Studio",
+        "tag": "NLP / Luma Mattes",
+        "icono": "🔠",
+        "desc": "Transforma textos, guiones y letras de canciones en texturas tipográficas de alto contraste y máscaras Luma Matte. Ideal para emisores de partículas y mapas de desplazamiento en Blender.",
         "url": "https://wordcloudstv-122.streamlit.app"
     },
     {
-        "titulo": "Traductor Neuronal",
-        "tag": "Sequence-to-Sequence",
-        "icono": "🌐",
-        "desc": "Rompe las barreras del idioma con esta herramienta de traducción automática. Capaz de interpretar y convertir texto entre múltiples idiomas con alta precisión, conservando el contexto y la semántica original de las oraciones.",
+        "titulo": "Vocal-Synth AV",
+        "tag": "Sequence-to-Speech",
+        "icono": "🎙️",
+        "desc": "Un sampler y sintetizador de voz multilingüe. Traduce entradas de voz y genera archivos de audio profesionales (MP3) listos para usar como diálogos de personajes en Unity o texturas sonoras.",
         "url": "https://traductorstv-122.streamlit.app"
     },
     {
-        "titulo": "Demo TF-IDF en Español",
-        "tag": "Information Retrieval",
-        "icono": "📊",
-        "desc": "Descubre la relevancia de las palabras en tus documentos. Esta aplicación implementa el algoritmo TF-IDF para extraer conceptos clave y analizar la importancia relativa de los términos en un corpus específico de textos en español.",
+        "titulo": "Prompt-Vault: Búsqueda Semántica",
+        "tag": "Information Retrieval / TF-IDF",
+        "icono": "🧠",
+        "desc": "Sistema de recuperación de información basado en TF-IDF. Permite organizar, clasificar y buscar de forma semántica en tu biblioteca de prompts para IA, texturas y recursos de diseño.",
         "url": "https://tdfespstv-122.streamlit.app"
     },
     {
-        "titulo": "Análisis de Sentimiento",
-        "tag": "Clasificación de Texto",
+        "titulo": "Senti-Vision: Dirección de Arte IA",
+        "tag": "Clasificación de Texto / Color Grading",
         "icono": "🎭",
-        "desc": "Evalúa el tono emocional detrás de las palabras. Esta herramienta clasifica textos según su polaridad (positiva, negativa o neutral), siendo ideal para analizar opiniones de usuarios o interacciones masivas en redes sociales.",
+        "desc": "Analiza la polaridad y subjetividad de guiones o conceptos narrativos para generar automáticamente paletas de colores (HEX) y parámetros de iluminación para Blender y Unity.",
         "url": "https://sentimentstv-122.streamlit.app"
     },
     {
-        "titulo": "Traductor de Imágenes",
-        "tag": "OCR + Translation",
-        "icono": "📸",
-        "desc": "Combina tecnología OCR con modelos de traducción automática. Al subir una imagen que contenga texto en otro idioma, la aplicación extrae los caracteres procesables y los traduce instantáneamente a tu idioma de preferencia.",
+        "titulo": "Gesture-Synth VJ Controller",
+        "tag": "OCR + Machine Learning",
+        "icono": "🖐️",
+        "desc": "Clasificador de gestos e interacciones físicas mediante modelos entrenados. Traduce posturas de la mano en comandos de control en tiempo real para entornos interactivos.",
         "url": "https://7acrpywfn4dncx2pxs7pb9.streamlit.app"
     },
     {
-        "titulo": "Reconocimiento Óptico (OCR)",
+        "titulo": "OCR Data-Stream",
         "tag": "Optical Character Recognition",
-        "icono": "📄",
-        "desc": "Digitaliza texto impreso o escrito con facilidad. Esta herramienta extrae la información contenida en imágenes o documentos escaneados, transformándolos en texto completamente editable mediante algoritmos de visión artificial.",
+        "icono": "👁️",
+        "desc": "Escáner analógico de caracteres que digitaliza texto impreso del mundo real con filtros de binarización avanzados, formateando los datos para su uso en TouchDesigner DATs.",
         "url": "https://ocrstv-122.streamlit.app"
     },
     {
-        "titulo": "Agente de IA",
-        "tag": "LLM / Conversational",
-        "icono": "🤖",
-        "desc": "Interactúa con un asistente virtual impulsado por modelos de lenguaje grande (LLM). Este agente está diseñado para comprender intenciones, mantener el contexto de la conversación y resolver consultas complejas de manera natural.",
+        "titulo": "Narrative-Synth: Voice-Over Studio",
+        "tag": "LLM / Text-to-Speech",
+        "icono": "🎙️",
+        "desc": "Estudio de doblaje sintético para previsualizaciones (Animatics). Convierte monólogos y guiones cinematográficos en assets de audio renderizados de alta calidad.",
         "url": "https://text-to-speech-estivenserna.streamlit.app/"
     },
     {
-        "titulo": "Analizador de PDF con LLM",
+        "titulo": "Pre-Pro AI: Desglosador de Guiones (RAG)",
         "tag": "RAG / Document AI",
-        "icono": "📚",
-        "desc": "Sube tus documentos PDF y chatea con ellos. Esta aplicación utiliza Generación Aumentada por Recuperación (RAG) para extraer información clave, resumir textos largos y responder preguntas precisas sobre tus propios archivos.",
+        "icono": "🎬",
+        "desc": "Asistente inteligente basado en RAG que analiza documentos PDF y guiones técnicos para extraer automáticamente listados de objetos 3D, esquemas de iluminación y requerimientos de producción.",
         "url": "https://pdf122.streamlit.app"
     },
     {
-        "titulo": "OCR AUDIO",
-        "tag": "Prototipo Base",
-        "icono": "🚀",
-        "desc": "Un espacio de experimentación y prueba de conceptos básicos. Aquí se exploran integraciones iniciales de modelos de machine learning y estructuras de interfaz, sentando las bases para aplicaciones interactivas más robustas.",
+        "titulo": "LingoEdu: Localizador de Idiomas",
+        "tag": "Prototipo Ciberfísico",
+        "icono": "📚",
+        "desc": "Aplicación interactiva de apoyo al aprendizaje que combina visión artificial y síntesis de voz multilingüe para traducir elementos del entorno físico en experiencias sonoras.",
         "url": "https://ocraudio-122.streamlit.app"
     }
 ]
@@ -149,41 +170,35 @@ apps_ia = [
 # 5. CONTENIDO PRINCIPAL (PESTAÑAS)
 # ==========================================
 st.markdown('<p class="title-gradient">Portafolio de Proyectos</p>', unsafe_allow_html=True)
-st.write("Explora mis herramientas desarrolladas con Inteligencia Artificial y mi perfil creativo.")
+st.write("Explora mis herramientas desarrolladas en la intersección de la Inteligencia Artificial, el diseño interactivo y la creación audiovisual.")
 
-# Creación de pestañas (La de IA es la principal)
 tab1, tab2 = st.tabs(["🧠 Aplicaciones de Inteligencia Artificial", "🎬 Extra: Enfoque Audiovisual y 3D"])
 
 with tab1:
-    st.write("### Mis Desarrollos en IA")
-    st.write("A continuación, una colección de aplicaciones prácticas de Inteligencia Artificial, que abarcan desde Visión por Computadora hasta Procesamiento de Lenguaje Natural.")
+    st.write("### Ecosistema de Herramientas IA")
+    st.write("Una colección de aplicaciones prácticas enfocadas en flujos de trabajo creativos, visión por computadora, procesamiento de lenguaje natural y síntesis multimedia.")
     st.write("---")
     
-    # Grid de 2 columnas para mostrar las 10 apps
     col1, col2 = st.columns(2)
     
     for i, app in enumerate(apps_ia):
-        # Distribución equitativa: pares a la izquierda, impares a la derecha
         col = col1 if i % 2 == 0 else col2
         
         with col:
-            # Uso de HTML dentro de Streamlit para crear el efecto "Tarjeta" con CSS
             st.markdown(f"""
             <div class="app-card">
-                <h3 style="margin-top: 0;">{app['icono']} {app['titulo']}</h3>
-                <p style="color: #888; font-size: 0.9em; font-weight: bold; margin-bottom: 10px;">🏷️ {app['tag']}</p>
-                <p>{app['desc']}</p>
+                <h3 style="margin-top: 0; color: #ff1e56;">{app['icono']} {app['titulo']}</h3>
+                <p style="color: #c08490; font-size: 0.85em; font-weight: bold; margin-bottom: 12px; letter-spacing: 0.5px;">🏷️ {app['tag'].upper()}</p>
+                <p style="color: #d1d5db; line-height: 1.6;">{app['desc']}</p>
             </div>
             """, unsafe_allow_html=True)
             
-            # Botón de enlace nativo de Streamlit justo debajo de la tarjeta HTML
             st.link_button(f"🔗 Abrir {app['titulo']}", app['url'], use_container_width=True)
-            st.write("") # Espaciador
-
+            st.write("") 
 
 with tab2:
     st.write("### Perfil Creativo e Interactivo")
-    st.write("Como estudiante de Diseño Interactivo, mi perfil también está fuertemente enfocado en la **animación y la creación audiovisual a través de estilos 3D y 2D**.")
+    st.write("Como estudiante de Diseño Interactivo, mi enfoque une la programación de sistemas creativos con la **animación y la producción audiovisual en 3D y 2D**.")
     
     col3, col4 = st.columns(2)
     
@@ -197,7 +212,7 @@ with tab2:
     with col4:
         st.success("**Enfoque Profesional:**")
         st.write("""
-        Busco crear narrativas visuales y experiencias inmersivas que conecten con los usuarios, 
-        fusionando la programación, el diseño de interfaces y el arte digital para explorar nuevas 
-        formas de interacción ciberfísica y virtual.
+        Busco crear narrativas visuales y experiencias inmersivas que conecten profundamente con los usuarios, 
+        fusionando la ingeniería de software, el diseño de interfaces y las artes mediales para explorar nuevas 
+        fronteras en la interacción ciberfísica y virtual.
         """)
